@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <h3 *ngIf="items.length ===0" class="no-item">
+    No items available on the list!
+  </h3>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items; let i = index">
+      <ion-item>
+        <ion-label>
+          <h2>{{item.name}}</h2>
+          <p>{{item.quantity}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option style="background-color: darkblue; color: white;">
+          <button (click)="editItem(item, i)" icon-start style="background-color: darkblue; color: white;">
+            <ion-icon slot="end" name="create-outline"></ion-icon>
+            Edit
+          </button>
+        </ion-item-option>
+
+        <ion-item-option style="background-color: firebrick; color: black;">
+          <button (click)="removeItem(item, i)" icon-start style="background-color: firebrick; color: black;">
+            <ion-icon slot="end" name="trash-outline"></ion-icon>
+            Done
+          </button>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab horizontal="end">
+    <ion-fab-button (click)="addItem()" id="present-alert">
+      <ion-icon name="add"></ion-icon>
+
+    </ion-fab-button>
+  </ion-fab>
+  <ion-alert trigger="present-alert"
+             header="Add Items"
+             subHeader="Please add item..."
+             [buttons]="inputService.alertButtons"
+             [inputs]="inputService.alertInputs">
+  </ion-alert>
+</ion-content>
